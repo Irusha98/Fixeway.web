@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PDF Converter Tools</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --primary: #4a90e2;
+      --header: #000;
+      --bg: #f5f7fa;
+      --white: #ffffff;
+      --text: #333333;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg);
+    }
+
+    header {
+      background-color: var(--header);
+      color: var(--white);
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.4rem;
+    }
+
+    .container {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    h2 {
+      font-size: 2rem;
+      color: var(--text);
+      margin-bottom: 40px;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 400px;
+      margin: auto;
+    }
+
+    .btn {
+      text-decoration: none;
+      padding: 15px;
+      font-size: 1.1rem;
+      color: white;
+      background-color: var(--primary);
+      border-radius: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #357abd;
+    }
+
+    @media (min-width: 600px) {
+      .btn-group {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Smart File Tools - PDF</h1>
+    <a href="{{ url_for('home') }}" style="color: white; text-decoration: underline;">Home</a>
+  </header>
+
+  <div class="container">
+    <h2>PDF Conversion & Editing</h2>
+    <div class="btn-group">
+      <a class="btn" href="{{ url_for('pdf_to_word') }}">PDF to Word</a>
+      <a class="btn" href="{{ url_for('word_to_pdf') }}">Word to PDF</a>
+      <a class="btn" href="{{ url_for('edit_pdf') }}">PDF Editor</a>
+      <a class="btn" href="{{ url_for('split_pdf') }}">Split PDF</a>
+      <a class="btn" href="{{ url_for('merge_pdf') }}">Merge PDFs</a>
+      <a class="btn" href="{{ url_for('image_to_pdf') }}">Image to PDF</a> <!-- NEW BUTTON -->
+    </div>
+  </div>
+
+</body>
+</html>

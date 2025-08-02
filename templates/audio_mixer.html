@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QHND0H216B"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QHND0H216B');
+  </script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merge Audio Files – MP3 Combiner | Fixway</title>
+  <meta name="description" content="Easily merge audio files into one seamless track with Fixway’s free online audio mixer. Upload MP3s, combine them, and download instantly. No software needed.">
+  <meta name="keywords" content="merge audio, audio mixer, combine MP3, mix audio tracks, join songs online, audio joiner, music merger, Fixway audio tools">
+  <meta name="author" content="Fixway IT Solutions">
+
+  <link rel="icon" href="https://www.fixeway.com/static/logo.png" type="image/png" sizes="70x70" onerror="this.onerror=null;this.src='https://placehold.co/70x70/cccccc/000000?text=F'">
+  <link rel="apple-touch-icon" href="https://www.fixeway.com/static/logo.png" onerror="this.onerror=null;this.src='https://placehold.co/70x70/cccccc/000000?text=F'">
+  <link rel="shortcut icon" href="https://www.fixeway.com/static/favicon.ico" type="image/x-icon">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <meta property="og:title" content="Merge Audio Files – MP3 Combiner | Fixway">
+  <meta property="og:description" content="Combine multiple MP3 files into one smooth track using Fixway's online audio joiner. 100% free and secure.">
+  <meta property="og:image" content="https://www.fixeway.com/static/logo.png">
+  <meta property="og:url" content="https://www.fixeway.com/merge-audio">
+  <meta property="og:type" content="website">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Merge Audio Files – MP3 Combiner | Fixway">
+  <meta name="twitter:description" content="Join audio files online with Fixway’s free MP3 merger. Upload, combine, and download in seconds — no installs needed.">
+  <meta name="twitter:image" content="https://www.fixeway.com/static/logo.png">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Fixway Audio Merger",
+    "url": "https://www.fixeway.com/merge-audio",
+    "applicationCategory": "MultimediaApplication",
+    "operatingSystem": "All",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Merge audio files (MP3, WAV, etc.) online with Fixway. Upload and combine tracks into one seamlessly. Free, fast and private.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Fixway",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.fixeway.com/static/logo.png"
+      }
+    }
+  }
+  </script>
+    <script src="https://unpkg.com/wavesurfer.js@6.6.2/dist/wavesurfer.min.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js@6.6.2/dist/plugin/wavesurfer.regions.min.js"></script>
+    <script src="https://unpkg.com/wavesurfer.js@6.6.2/dist/plugin/wavesurfer.cursor.min.js"></script>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            color: #000;
+            background: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow: auto;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1px 50px;
+            background-color: #000;
+            border-bottom: 1px solid #eee;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            height: 60px;
+        }
+        .navbar .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+        .seo-heading-container {
+            text-align: center;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            max-width: 800px;
+            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .seo-heading-container h1 {
+            font-size: 16.5px;
+            color: #333;
+            margin: 0;
+            line-height: 1.2;
+            font-weight: normal;
+        }
+        .main-topic-line {
+            text-align: center;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+        .main-topic-line h1 {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #000;
+            margin: 0;
+        }
+        .navbar .right-nav-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .navbar .right-nav-group a, .navbar .login-button {
+            background-color: #000;
+            color: #fff;
+            padding: 8px 12px;
+            text-decoration: none;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            white-space: nowrap;
+            transition: border-color 0.3s ease, transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .navbar .right-nav-group a:hover, .navbar .login-button:hover {
+            border-color: #fff;
+            transform: translateY(-2px);
+        }
+        .footer {
+            background-color: #000;
+            color: #fff;
+            padding: 30px 50px;
+            text-align: center;
+            position: relative;
+            width: 100%;
+        }
+        .footer p { margin: 0; font-size: 14px; }
+        .footer .footer-links { margin-top: 15px; }
+        .footer .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            margin: 10px;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        .footer .footer-links a:hover { color: #e53935; }
+        .sri-lankan-flag {
+            position: absolute;
+            bottom: 35px;
+            right: 20px;
+            width: 60px;
+            height: 30px;
+            border: 1px solid #ccc;
+        }
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 50px 1em;
+            gap: 20px;
+            width: 100%;
+        }
+        .card {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            max-width: 1000px;
+            width: 100%;
+        }
+        .back-to-home-btn {
+            background-color: #000;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            margin: 40px auto;
+        }
+        .back-to-home-btn:hover { background-color: #333; }
+        .modal {
+            display: none; position: fixed; z-index: 1001; left: 0; top: 0;
+            width: 100%; height: 100%; background-color: rgba(0,0,0,0.6);
+            backdrop-filter: blur(5px); -webkit-backdrop-filter: blur(5px);
+            justify-content: center; align-items: center;
+        }
+        .modal-content {
+            background-color: #fefefe; margin: auto; padding: 30px;
+            border-radius: 12px; box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            width: 90%; max-width: 400px; position: relative;
+            animation: fadeIn 0.3s ease-out; display: flex;
+            flex-direction: column; gap: 15px;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        .close-button {
+            color: #aaa; position: absolute; top: 15px; right: 20px;
+            font-size: 28px; font-weight: bold; cursor: pointer;
+        }
+        .close-button:hover, .close-button:focus { color: #333; }
+        .social-btn {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 12px 20px; border-radius: 8px; font-size: 1em; cursor: pointer;
+            border: 1px solid #ddd; color: #333; background-color: #fff;
+        }
+        .social-btn.google { background-color: #DB4437; color: white; border-color: #DB4437; }
+        .social-btn.facebook { background-color: #4267B2; color: white; border-color: #4267B2; }
+        .separator { display: flex; align-items: center; text-align: center; color: #888; margin: 20px 0; }
+        .separator::before, .separator::after { content: ''; flex: 1; border-bottom: 1px solid #ddd; }
+        .separator:not(:empty)::before { margin-right: .5em; }
+        .separator:not(:empty)::after { margin-left: .5em; }
+        .modal-content input { width: 100%; padding: 12px 15px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 8px; }
+        .modal-content button[type="submit"] { background-color: #007bff; color: white; padding: 12px 20px; border: none; border-radius: 8px; width: 100%; }
+        .waveform { width: 100%; height: 120px; background-color: #f0f0f0; border-radius: 0.5rem; margin-top: 0.75rem; border: 1px solid #e5e7eb; }
+        .tool-message-box {
+            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+            background-color: #333; color: white; padding: 10px 20px;
+            border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            z-index: 1000; opacity: 0; transition: opacity 0.3s ease-in-out;
+        }
+        .tool-message-box.show { opacity: 1; }
+        .audio-track-container {
+            border: 1px solid #e5e7eb; border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            padding: 1rem; margin-bottom: 1rem; background-color: #ffffff;
+            transition: border-color 0.2s ease-in-out;
+        }
+        .audio-track-container.selected { border-color: #4a90e2; }
+        .icon-button {
+            padding: 0.5rem; width: 3rem; height: 3rem; display: flex;
+            align-items: center; justify-content: center;
+        }
+    </style>
+</head>
+<body>
+   <header class="navbar">
+        <a href="#" class="logo">Fixway</a>
+        <div class="right-nav-group">
+            <a href="#">AI</a>
+            <a href="#">About Us</a>
+            <button class="login-button" onclick="openModal()">Login</button>
+        </div>
+    </header>
+    <div class="main-topic-line">
+        <h1>Merge Audio</h1>
+    </div>
+    <div class="seo-heading-container">
+        <h1>Easily merge audio files into one seamless track with Fixway’s free online audio mixer. Upload MP3s, combine them, and download instantly. No software needed.</h1>
+    </div>
+
+    <main>
+        <div class="card">
+            <h1 class="text-2xl font-bold text-gray-800">Multi-Track Audio Mixer</h1>
+            <div id="audio-tracks-container" class="w-full space-y-4"></div>
+            <div class="flex justify-center mt-6">
+                <button onclick="addAudioTrackInput()" class="font-semibold py-2 px-6 rounded-full shadow-md transition duration-300 bg-blue-600 hover:bg-blue-700 text-white">
+                    Add New Track
+                </button>
+            </div>
+            <hr class="my-6 w-full border-gray-300">
+            <h2 class="text-2xl font-semibold text-center text-gray-800 mb-6">Combine All Tracks</h2>
+            <div class="flex justify-center mb-6 gap-4">
+                <button id="mergeAllTracksBtn" onclick="mergeAllTracks()" class="font-semibold py-2 px-6 rounded-full shadow-md transition duration-300 bg-black hover:bg-gray-800 text-white disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                    Merge & Download as WAV
+                </button>
+            </div>
+            <div id="merge-status" class="text-center text-sm font-medium h-5"></div>
+        </div>
+        <a href="#" class="back-to-home-btn">Back to Home</a>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Fixway. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Us</a>
+        </div>
+        <img src="https://placehold.co/60x30/cccccc/000000?text=FLAG" alt="Flag" class="sri-lankan-flag">
+    </footer>
+
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h3>Login to Fixway</h3>
+            <button class="social-btn google"><i class="fab fa-google"></i> Continue with Google</button>
+            <button class="social-btn facebook"><i class="fab fa-facebook-f"></i> Continue with Facebook</button>
+            <div class="separator">OR</div>
+            <input type="email" placeholder="Email address">
+            <input type="password" placeholder="Password">
+            <button type="submit">Log In</button>
+        </div>
+    </div>
+    <div id="toolMessageBox" class="tool-message-box"></div>
+
+    <script>
+        // --- CORE AUDIO & UI LOGIC ---
+
+        const audioTracksContainer = document.getElementById('audio-tracks-container');
+        const mergeStatusDiv = document.getElementById('merge-status');
+        const toolMessageBox = document.getElementById('toolMessageBox');
+        const mergeAllTracksBtn = document.getElementById('mergeAllTracksBtn');
+
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+        let trackCount = 0;
+        let allTrackInstances = [];
+        let selectedTrackId = null;
+
+        function showToolMessage(message, type = 'info') {
+            toolMessageBox.textContent = message;
+            toolMessageBox.className = 'tool-message-box show';
+            if (type === 'error') toolMessageBox.style.backgroundColor = '#dc2626';
+            else if (type === 'success') toolMessageBox.style.backgroundColor = '#16a34a';
+            else toolMessageBox.style.backgroundColor = '#333';
+            
+            setTimeout(() => toolMessageBox.classList.remove('show'), 3000);
+        }
+
+        function updateMergeButtonState() {
+            const loadedFilesCount = allTrackInstances.filter(track => track.audioBuffer !== null).length;
+            mergeAllTracksBtn.disabled = loadedFilesCount < 2;
+        }
+
+        function initializeWaveSurferForTrack(containerId, trackId) {
+            try {
+                if (typeof WaveSurfer === 'undefined') throw new Error("WaveSurfer.js not loaded.");
+
+                return WaveSurfer.create({
+                    container: `#${containerId}`,
+                    waveColor: '#cccccc',
+                    progressColor: '#000000',
+                    cursorColor: '#333333',
+                    barWidth: 3,
+                    barRadius: 3,
+                    barGap: 1,
+                    height: 120,
+                    plugins: [
+                        WaveSurfer.regions.create({
+                            regionsMinLength: 0.1,
+                            dragSelection: true,
+                            color: 'rgba(173, 216, 230, 0.5)',
+                            maxRegions: 1,
+                        }),
+                        WaveSurfer.cursor.create({ showTime: true, opacity: 1, color: '#000000' })
+                    ],
+                });
+            } catch (e) {
+                console.error(`Error creating WaveSurfer for ${trackId}:`, e);
+                showToolMessage(`Error initializing audio player for ${trackId}.`, 'error');
+                return null;
+            }
+        }
+
+        function addAudioTrackInput() {
+            trackCount++;
+            const trackId = `track-${trackCount}`;
+
+            const trackDiv = document.createElement('div');
+            trackDiv.className = 'audio-track-container';
+            trackDiv.id = trackId;
+
+            trackDiv.innerHTML = `
+                <div class="flex justify-between items-center">
+                    <h3 class="text-xl font-semibold text-gray-800">Track ${trackCount}</h3>
+                    <button class="remove-track-button text-red-500 hover:text-red-700" data-track-id="${trackId}"><i class="fas fa-trash-alt fa-lg"></i></button>
+                </div>
+                <input type="file" accept="audio/*" class="block w-full text-sm text-gray-600 my-3
+                    file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold
+                    file:bg-gray-200 file:text-gray-800 hover:file:bg-gray-300 cursor-pointer">
+                <div class="waveform" id="waveform-${trackId}"></div>
+                <div class="track-info text-sm text-gray-600 mt-2 h-5" id="info-${trackId}">Drop an audio file or click to select</div>
+                <div class="flex flex-wrap justify-start items-center gap-4 mt-3 mb-3">
+                    <button class="play-btn font-semibold py-2 px-4 rounded-full shadow-md bg-black hover:bg-gray-800 text-white icon-button" disabled><i class="fas fa-play"></i></button>
+                    <button class="pause-btn font-semibold py-2 px-4 rounded-full shadow-md bg-black hover:bg-gray-800 text-white icon-button" disabled><i class="fas fa-pause"></i></button>
+                    <button class="trim-btn font-semibold py-2 px-4 rounded-full shadow-md bg-blue-600 hover:bg-blue-700 text-white icon-button" disabled><i class="fas fa-cut"></i></button>
+                    <button class="download-btn font-semibold py-2 px-4 rounded-full shadow-md bg-green-600 hover:bg-green-700 text-white icon-button" disabled><i class="fas fa-download"></i></button>
+                </div>
+                <div class="dynamic-track-controls mt-3 p-3 bg-gray-100 rounded-lg">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="font-medium text-sm text-gray-700">Trim</label>
+                            <div class="flex items-center gap-2 mt-1">
+                                <label for="trim-start-${trackId}" class="text-sm">Start:</label>
+                                <input type="number" id="trim-start-${trackId}" step="0.01" value="0" class="w-20 p-2 border border-gray-300 rounded-md text-sm" disabled>
+                                <label for="trim-end-${trackId}" class="text-sm">End:</label>
+                                <input type="number" id="trim-end-${trackId}" step="0.01" value="0" class="w-20 p-2 border border-gray-300 rounded-md text-sm" disabled>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="fade-duration-${trackId}" class="font-medium text-sm text-gray-700">Fade Duration</label>
+                            <div class="flex items-center gap-2 mt-1">
+                                <select id="fade-duration-${trackId}" class="w-24 p-2 border border-gray-300 rounded-md text-sm" disabled>
+                                    <option value="1">1 second</option>
+                                    <option value="2">2 seconds</option>
+                                    <option value="3">3 seconds</option>
+                                    <option value="4">4 seconds</option>
+                                    <option value="5">5 seconds</option>
+                                </select>
+                                <button class="fade-in-btn font-semibold text-xs py-1 px-2 rounded-md bg-gray-600 hover:bg-gray-700 text-white" disabled>Fade In</button>
+                                <button class="fade-out-btn font-semibold text-xs py-1 px-2 rounded-md bg-gray-600 hover:bg-gray-700 text-white" disabled>Fade Out</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            audioTracksContainer.appendChild(trackDiv);
+
+            const wavesurferInstance = initializeWaveSurferForTrack(`waveform-${trackId}`, trackId);
+            if (!wavesurferInstance) return;
+
+            const newTrack = {
+                id: trackId,
+                originalFile: null,
+                audioBuffer: null,
+                wavesurfer: wavesurferInstance,
+                element: trackDiv,
+                infoDiv: trackDiv.querySelector(`#info-${trackId}`),
+                trimStartInput: trackDiv.querySelector(`#trim-start-${trackId}`),
+                trimEndInput: trackDiv.querySelector(`#trim-end-${trackId}`),
+                fadeDurationInput: trackDiv.querySelector(`#fade-duration-${trackId}`),
+                activeRegion: null,
+            };
+            
+            newTrack.wavesurfer.on('ready', () => onWaveformReady(newTrack));
+            newTrack.wavesurfer.on('error', (err) => {
+                showToolMessage(`Waveform Error: ${err}`, 'error');
+                console.error('WaveSurfer error:', err);
+            });
+            newTrack.wavesurfer.on('region-update-end', (region) => onRegionUpdate(newTrack, region));
+            newTrack.wavesurfer.on('interact', () => selectTrack(newTrack.id));
+            
+            trackDiv.querySelector('input[type="file"]').onchange = (event) => handleFileSelect(event, newTrack.id);
+            trackDiv.querySelector('.play-btn').onclick = () => playTrack(newTrack.id);
+            trackDiv.querySelector('.pause-btn').onclick = () => pauseTrack(newTrack.id);
+            trackDiv.querySelector('.remove-track-button').onclick = () => removeTrack(newTrack.id);
+            trackDiv.querySelector('.trim-btn').onclick = () => trimSelectedTrack(newTrack.id);
+            trackDiv.querySelector('.download-btn').onclick = () => downloadProcessedTrack(newTrack.id);
+            trackDiv.querySelector('.fade-in-btn').onclick = () => fadeSelectedTrack(newTrack.id, 'in');
+            trackDiv.querySelector('.fade-out-btn').onclick = () => fadeSelectedTrack(newTrack.id, 'out');
+            
+            allTrackInstances.push(newTrack);
+        }
+        
+        async function handleFileSelect(event, trackId) {
+            if (audioContext.state === 'suspended') {
+                await audioContext.resume();
+            }
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const track = allTrackInstances.find(t => t.id === trackId);
+            if (!track) return;
+
+            track.originalFile = file;
+            track.infoDiv.textContent = `Loading & decoding ${file.name}...`;
+
+            try {
+                const arrayBuffer = await file.arrayBuffer();
+                track.audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+                // Use URL.createObjectURL for robust loading into WaveSurfer
+                track.wavesurfer.load(URL.createObjectURL(file));
+            } catch (error) {
+                track.infoDiv.textContent = `Error processing file: ${error.message}`;
+                console.error("Audio processing error:", error);
+                showToolMessage('Could not decode audio. File may be corrupt or unsupported.', 'error');
+                track.audioBuffer = null;
+            }
+        }
+
+        function onWaveformReady(track) {
+            const duration = track.wavesurfer.getDuration();
+            track.infoDiv.textContent = `File: ${track.originalFile.name} | Duration: ${duration.toFixed(2)}s`;
+            
+            track.element.querySelectorAll('button, input, select').forEach(el => el.disabled = false);
+
+            track.wavesurfer.regions.clear();
+            const region = track.wavesurfer.regions.add({
+                start: 0,
+                end: duration,
+                resize: true,
+                drag: true,
+                color: 'rgba(173, 216, 230, 0.5)',
+            });
+            track.activeRegion = region;
+            
+            track.trimStartInput.value = 0;
+            track.trimEndInput.value = duration.toFixed(2);
+            
+            selectTrack(track.id);
+            updateMergeButtonState();
+        }
+        
+        function onRegionUpdate(track, region) {
+            track.trimStartInput.value = region.start.toFixed(2);
+            track.trimEndInput.value = region.end.toFixed(2);
+            track.activeRegion = region;
+        }
+
+        function removeTrack(trackId) {
+            const trackIndex = allTrackInstances.findIndex(t => t.id === trackId);
+            if (trackIndex !== -1) {
+                allTrackInstances[trackIndex].wavesurfer.destroy();
+                document.getElementById(trackId).remove();
+                allTrackInstances.splice(trackIndex, 1);
+                if (selectedTrackId === trackId) selectedTrackId = null;
+            }
+            updateMergeButtonState();
+        }
+        
+        function selectTrack(trackId) {
+            selectedTrackId = trackId;
+            allTrackInstances.forEach(track => {
+                track.element.classList.toggle('selected', track.id === trackId);
+            });
+        }
+
+        function playTrack(trackId) {
+            const track = allTrackInstances.find(t => t.id === trackId);
+            if (track && track.wavesurfer) {
+                if (track.activeRegion) track.activeRegion.play();
+                else track.wavesurfer.play();
+            }
+        }
+
+        function pauseTrack(trackId) {
+            const track = allTrackInstances.find(t => t.id === trackId);
+            if (track && track.wavesurfer) track.wavesurfer.pause();
+        }
+        
+        async function trimSelectedTrack(trackId) {
+            const track = allTrackInstances.find(t => t.id === trackId);
+            if (!track || !track.audioBuffer) {
+                showToolMessage('No audio loaded to trim.', 'error');
+                return;
+            }
+
+            const startTime = parseFloat(track.trimStartInput.value);
+            const endTime = parseFloat(track.trimEndInput.value);
+            const originalBuffer = track.audioBuffer;
+
+            if (isNaN(startTime) || isNaN(endTime) || startTime < 0 || endTime <= startTime || endTime > originalBuffer.duration) {
+                showToolMessage('Invalid start or end times for trimming.', 'error');
+                return;
+            }
+
+            track.infoDiv.textContent = 'Trimming audio...';
+            
+            const startFrame = Math.floor(startTime * originalBuffer.sampleRate);
+            const endFrame = Math.floor(endTime * originalBuffer.sampleRate);
+            const frameCount = endFrame - startFrame;
+
+            const newBuffer = audioContext.createBuffer(
+                originalBuffer.numberOfChannels,
+                frameCount,
+                originalBuffer.sampleRate
+            );
+
+            for (let i = 0; i < originalBuffer.numberOfChannels; i++) {
+                newBuffer.getChannelData(i).set(originalBuffer.getChannelData(i).subarray(startFrame, endFrame));
+            }
+
+            track.audioBuffer = newBuffer;
+            
+            const wavBlob = bufferToWave(newBuffer);
+            track.originalFile = new File([wavBlob], "trimmed_track.wav", { type: 'audio/wav' });
+            track.wavesurfer.load(URL.createObjectURL(wavBlob));
+
+            showToolMessage('Track trimmed successfully!', 'success');
+        }
+
+        async function fadeSelectedTrack(trackId, fadeType) {
+            const track = allTrackInstances.find(t => t.id === trackId);
+            if (!track || !track.audioBuffer) {
+                showToolMessage('No audio loaded to apply fade.', 'error');
+                return;
+            }
+            
+            const fadeDuration = parseFloat(track.fadeDurationInput.value);
+            if (isNaN(fadeDuration) || fadeDuration <= 0) {
+                showToolMessage('Please enter a valid fade duration.', 'error');
+                return;
+            }
+
+            track.infoDiv.textContent = `Applying fade ${fadeType}...`;
+
+            const originalBuffer = track.audioBuffer;
+            const offlineCtx = new OfflineAudioContext(originalBuffer.numberOfChannels, originalBuffer.length, originalBuffer.sampleRate);
+
+            const source = offlineCtx.createBufferSource();
+            source.buffer = originalBuffer;
+
+            const gainNode = offlineCtx.createGain();
+            const now = offlineCtx.currentTime;
+
+            if (fadeType === 'in') {
+                gainNode.gain.setValueAtTime(0, now);
+                gainNode.gain.linearRampToValueAtTime(1, now + fadeDuration);
+            } else { // fade out
+                const fadeOutStartTime = Math.max(0, originalBuffer.duration - fadeDuration);
+                gainNode.gain.setValueAtTime(1, now); // Set initial gain to 1
+                gainNode.gain.setValueAtTime(1, now + fadeOutStartTime); // Hold gain at 1 until fade starts
+                gainNode.gain.linearRampToValueAtTime(0, now + originalBuffer.duration);
+            }
+            
+            source.connect(gainNode);
+            gainNode.connect(offlineCtx.destination);
+            source.start(0);
+
+            try {
+                const renderedBuffer = await offlineCtx.startRendering();
+                track.audioBuffer = renderedBuffer;
+                
+                const wavBlob = bufferToWave(renderedBuffer);
+                track.originalFile = new File([wavBlob], "faded_track.wav", { type: 'audio/wav' });
+                track.wavesurfer.load(URL.createObjectURL(wavBlob));
+
+                showToolMessage(`Fade ${fadeType} applied successfully!`, 'success');
+            } catch(err) {
+                showToolMessage('Failed to apply fade.', 'error');
+                console.error('Fade error:', err);
+                track.infoDiv.textContent = `Fade failed.`;
+            }
+        }
+
+
+        function downloadProcessedTrack(trackId) {
+            const track = allTrackInstances.find(t => t.id === trackId);
+            if (!track || !track.audioBuffer) {
+                showToolMessage('No audio loaded to download.', 'error');
+                return;
+            }
+            
+            const wavBlob = bufferToWave(track.audioBuffer);
+            const url = URL.createObjectURL(wavBlob);
+            
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = track.originalFile.name.replace(/\.[^/.]+$/, "") + '_processed.wav';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            a.remove();
+            
+            showToolMessage('Download started!', 'success');
+        }
+
+        async function mergeAllTracks() {
+            const loadedTracks = allTrackInstances.filter(track => track.audioBuffer !== null);
+            if (loadedTracks.length < 2) {
+                showToolMessage('Please load at least two tracks to merge.', 'error');
+                return;
+            }
+
+            mergeStatusDiv.textContent = 'Merging tracks...';
+            
+            const firstTrack = loadedTracks[0];
+            const sampleRate = firstTrack.audioBuffer.sampleRate;
+            const numberOfChannels = firstTrack.audioBuffer.numberOfChannels;
+
+            if (loadedTracks.some(t => t.audioBuffer.sampleRate !== sampleRate || t.audioBuffer.numberOfChannels !== numberOfChannels)) {
+                showToolMessage('All tracks must have the same sample rate and channel count to be merged.', 'error');
+                mergeStatusDiv.textContent = 'Merge failed: Mismatched audio formats.';
+                return;
+            }
+
+            const totalLength = loadedTracks.reduce((sum, t) => sum + t.audioBuffer.length, 0);
+            const mergedBuffer = audioContext.createBuffer(numberOfChannels, totalLength, sampleRate);
+
+            let offset = 0;
+            for (const track of loadedTracks) {
+                for (let i = 0; i < numberOfChannels; i++) {
+                    mergedBuffer.getChannelData(i).set(track.audioBuffer.getChannelData(i), offset);
+                }
+                offset += track.audioBuffer.length;
+            }
+
+            const wavBlob = bufferToWave(mergedBuffer);
+            const url = URL.createObjectURL(wavBlob);
+            
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = 'merged_audio.wav';
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            a.remove();
+            
+            mergeStatusDiv.textContent = 'Merge complete! Download started.';
+            showToolMessage('Tracks merged successfully!', 'success');
+        }
+
+        function bufferToWave(buffer) {
+            const numOfChan = buffer.numberOfChannels, length = buffer.length * numOfChan * 2 + 44;
+            const bufferArray = new ArrayBuffer(length);
+            const view = new DataView(bufferArray);
+            let pos = 0;
+
+            const setUint16 = (data) => { view.setUint16(pos, data, true); pos += 2; };
+            const setUint32 = (data) => { view.setUint32(pos, data, true); pos += 4; };
+
+            setUint32(0x46464952); // "RIFF"
+            setUint32(length - 8);
+            setUint32(0x45564157); // "WAVE"
+            setUint32(0x20746d66); // "fmt "
+            setUint32(16);
+            setUint16(1);
+            setUint16(numOfChan);
+            setUint32(buffer.sampleRate);
+            setUint32(buffer.sampleRate * 2 * numOfChan);
+            setUint16(numOfChan * 2);
+            setUint16(16);
+            setUint32(0x61746164); // "data"
+            setUint32(length - pos - 4);
+
+            const channels = [];
+            for (let i = 0; i < buffer.numberOfChannels; i++) channels.push(buffer.getChannelData(i));
+
+            let offset = 0;
+            while (pos < length) {
+                for (let i = 0; i < numOfChan; i++) {
+                    let sample = Math.max(-1, Math.min(1, channels[i][offset]));
+                    sample = (0.5 + sample < 0 ? sample * 32768 : sample * 32767) | 0;
+                    view.setInt16(pos, sample, true);
+                    pos += 2;
+                }
+                offset++;
+            }
+            return new Blob([view], { type: 'audio/wav' });
+        }
+
+        const loginModal = document.getElementById('loginModal');
+        function openModal() { loginModal.style.display = 'flex'; }
+        function closeModal() { loginModal.style.display = 'none'; }
+        window.onclick = function(event) { if (event.target == loginModal) closeModal(); }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            addAudioTrackInput();
+            updateMergeButtonState();
+        });
+    </script>
+</body>
+</html>
