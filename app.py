@@ -1,3 +1,5 @@
+# app.py
+# app.py
 import sys
 from PyPDF2 import PdfReader, PdfWriter, PdfMerger
 from flask import Flask, render_template, request, redirect, url_for, send_file, abort, jsonify, send_from_directory
@@ -221,6 +223,12 @@ def ai_page():
     """Renders the AI.html page."""
     return render_template('AI.html')
 
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, 'static'),
+                                'logo.png', mimetype='image/png')
+
+
 @app.route('/contact')
 def contact_page():
     """Renders the conatct.html page."""
@@ -324,7 +332,7 @@ def merge_video():
         final_clip = concatenate_videoclips(clips)
 
         final_clip.write_videofile(output_path, codec="libx264", audio_codec="aac",
-                                   temp_audiofile=f"{output_path}_temp_audio.m4a", remove_temp=True)
+                                    temp_audiofile=f"{output_path}_temp_audio.m4a", remove_temp=True)
 
         # Close all clips and clean up input files
         for clip in clips:
@@ -530,7 +538,7 @@ def edit_pdf():
 
 @app.route('/save_edited_pdf', methods=['POST'])
 def save_edited_pdf():
-    """Saves the edited PDF with added elements (text, signatures, checkmarks, crosses, redaction)."""
+    """Saves the edited PDF with added elements (text, signatures, checkmarks, crosses)."""
     print("Received POST request to /save_edited_pdf")
     data = request.get_json()
     if not data:
@@ -632,7 +640,7 @@ def save_edited_pdf():
                         continue
 
                     # PyMuPDF's Y-axis origin is top-left, while ReportLab's is bottom-left.
-                    # For elements drawn directly with PyMuPDF (images, SVGs, redaction boxes), `y_pos_pdf` is the top-left Y coordinate.
+                    # For elements drawn directly with PyMuPDF (images, SVGs), `y_pos_pdf` is the top-left Y coordinate.
                     # For ReportLab elements (text), `y_pos_reportlab` is the bottom-left Y coordinate relative to ReportLab's canvas.
 
                     if el_type == 'textbox' or el_type == 'datebox':
@@ -761,32 +769,6 @@ def save_edited_pdf():
                             traceback.print_exc(file=sys.stderr)
                             print("    Attempting to continue processing other elements. (Check SVG validity or CairoSVG system setup)", file=sys.stderr)
 
-                    elif el_type == 'redaction':
-                        # Redaction box: draw a filled rectangle
-                        style = element.get('style', {})
-                        background_color_hex = style.get('backgroundColor', '#FFFFFF') # Default to white for redaction
-
-                        try:
-                            # Convert hex color to RGB tuple for PyMuPDF
-                            # HexColor from reportlab gives us an object with .red, .green, .blue attributes (0-1.0)
-                            rl_color = HexColor(background_color_hex)
-                            fill_color_rgb = (rl_color.red, rl_color.green, rl_color.blue)
-                            
-                            # Define the rectangle for PyMuPDF: (x0, y0, x1, y1)
-                            # PyMuPDF's y-axis is from the top.
-                            # x0, y0 = top-left corner
-                            # x1, y1 = bottom-right corner
-                            rect = fitz.Rect(x_pos_pdf, y_pos_pdf, x_pos_pdf + width_el_pdf, y_pos_pdf + height_el_pdf)
-                            
-                            # Draw a filled rectangle (redaction)
-                            page.draw_rect(rect, fill=fill_color_rgb, color=fill_color_rgb) # Use same color for stroke and fill
-                            print(f"    Successfully drew redaction box at {rect} with color {background_color_hex}.")
-
-                        except Exception as redaction_e:
-                            print(f"    Error drawing redaction box (element ID: {element.get('id', 'N/A')}): {redaction_e}", file=sys.stderr)
-                            traceback.print_exc(file=sys.stderr)
-                            print("    Attempting to continue processing other elements.", file=sys.stderr)
-
                 else:
                     print(f"  Element (ID: {element.get('id', 'N/A')}) skipped for page {page_number} (belongs to page {element_page_num_0_indexed}).")
 
@@ -903,7 +885,7 @@ def word_to_pdf():
                 print(f"stdout: {e.stdout}", file=sys.stderr)
                 print(f"stderr: {e.stderr}", file=sys.stderr)
                 abort(500, f"Word to PDF conversion failed: Command execution error. Details: {e.stderr}. "
-                            "Ensure LibreOffice is installed and unoconv can find it (check UNO_PATH).")
+                           "Ensure LibreOffice is installed and unoconv can find it (check UNO_PATH).")
             except FileNotFoundError:
                 # This exception is caught if the 'unoconv' command itself is not found
                 print("Error: 'unoconv' command not found. Please ensure LibreOffice and unoconv are installed and in your system's PATH.", file=sys.stderr)
@@ -1416,6 +1398,7 @@ def extract_archive():
         if 'output_zip_path' in locals() and output_zip_path and os.path.exists(output_zip_path):
             try:
                 os.remove(output_zip_path)
+                print(f"Cleaned up output zip file: {output_zip_path}")
             except OSError as e:
                 print(f"Error removing output zip file {output_zip_path}: {e}", file=sys.stderr)
 
@@ -1490,6 +1473,7 @@ def create_archive():
                 # patoolib expects a list of files/directories to archive.
                 # If you want to archive the *contents* of temp_upload_dir, pass its path.
                 patoolib.create_archive(output_archive_path, [temp_upload_dir])
+                print(f"Created {archive_format} archive: {output_archive_path}")
             except patoolib.util.PatoolError as pe:
                 # Clean up temp_upload_dir and return error
                 if os.path.exists(temp_upload_dir):
