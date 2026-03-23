@@ -22,18 +22,24 @@ concatenate_videoclips = None
 CompositeAudioClip = None
 afx = None
 vfx = None
-# Optional libraries that may not be available on Render
+# app.py top
 try:
-    from moviepy.editor import VideoFileClip, VideoFileClip
+    from moviepy.editor import VideoFileClip
 except ImportError:
     VideoFileClip = None
     print("Warning: moviepy not installed — video features disabled.")
 
 try:
+    from pydub import AudioSegment
+except (ImportError, ModuleNotFoundError):
+    AudioSegment = None
+    print("Warning: pydub/audio features disabled.")
+
+try:
     import cairosvg
 except ImportError:
     cairosvg = None
-    print("Warning: cairosvg not installed — SVG conversion disabled.")
+    print("Warning: cairosvg not installed — SVG features disabled.")
 
 try:
     from PyPDF2 import PdfReader, PdfWriter, PdfMerger
