@@ -1,5 +1,5 @@
 # Use Python 3.13 slim image
-FROM python:3.13-slim
+FROM python:3.13
 
 # Install ffmpeg for moviepy/pydub
 RUN apt-get update && apt-get install -y ffmpeg && rm -rf /var/lib/apt/lists/*
