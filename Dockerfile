@@ -1,21 +1,16 @@
-# Use Python 3.13 slim image
 FROM python:3.13
-
-# Install ffmpeg for moviepy/pydub
-RUN apt-get update && apt-get install -y ffmpeg && rm -rf /var/lib/apt/lists/*
-
-# Set working directory
 WORKDIR /app
 
-# Copy requirements and install
+# Copy and install requirements
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --upgrade pip \
+    && pip install --no-cache-dir -r requirements.txt
 
-# Copy all code
+# Copy source code
 COPY . .
 
-# Expose port (Render uses 10000)
+# Expose port
 EXPOSE 10000
 
-# Start app
-CMD ["gunicorn", "app:app", "--bind", "0.0.0.0:10000"]
+# Start server
+CMD ["gunicorn", "app:app", "-b", "0.0.0.0:10000"]
