@@ -1,5 +1,5 @@
 # Use full Python image (not slim) so gcc + audioop are included
-FROM python:3.13
+FROM python:3.11
 
 WORKDIR /app
 
