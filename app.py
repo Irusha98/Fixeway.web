@@ -22,31 +22,6 @@ concatenate_videoclips = None
 CompositeAudioClip = None
 afx = None
 vfx = None
-# app.py top
-try:
-    from moviepy.editor import VideoFileClip
-except ImportError:
-    VideoFileClip = None
-    print("Warning: moviepy not installed — video features disabled.")
-
-try:
-    from pydub import AudioSegment
-except (ImportError, ModuleNotFoundError):
-    AudioSegment = None
-    print("Warning: pydub/audio features disabled.")
-
-try:
-    import cairosvg
-except ImportError:
-    cairosvg = None
-    print("Warning: cairosvg not installed — SVG features disabled.")
-
-try:
-    from PyPDF2 import PdfReader, PdfWriter, PdfMerger
-except ImportError:
-    PdfReader = PdfWriter = PdfMerger = None
-    print("Warning: PyPDF2 not installed — PDF features disabled.")
-
 
 try:
     from moviepy.editor import VideoFileClip, concatenate_videoclips, vfx, AudioFileClip, CompositeAudioClip, afx
