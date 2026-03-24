@@ -1,9 +1,37 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QHND0H216B"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-QHND0H216B');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Upload PDF to Edit</title>
+    <title>Edit PDF Online – Add Text or Signature</title>
+    <meta name="description" content="Edit PDFs online: add signatures free, fill forms, add signature free online, highlight text, insert shapes, and more with Fixway. Convert to editable PDFs securely and easily.">
+    <meta name="keywords" content="edit PDF, add signature to PDF, fill PDF forms, convert to editable PDF, highlight PDF, annotate PDF, Fixway PDF tools, online PDF editor, secure PDF editing">
+    <meta name="author" content="Fixway IT Solutions">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="https://www.fixeway.com/static/logo.png" type="image/png" sizes="70x70">
+    <link rel="apple-touch-icon" href="https://www.fixeway.com/static/logo.png">
+    <link rel="shortcut icon" href="https://www.fixeway.com/static/favicon.ico" type="image/x-icon">
+
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Fixway",
+      "url": "https://www.fixeway.com",
+      "logo": "https://www.fixeway.com/static/logo.png"
+    }
+    </script>
+
     <style>
         /* Common styles from pdf_to_word.html for consistency */
         body {
@@ -28,11 +56,13 @@
             margin: 0 -20px; /* Adjust if body padding is kept */
             padding-left: calc(20px + 30px);
             padding-right: calc(20px + 30px);
+
         }
         .navbar .logo {
             font-size: 24px;
             font-weight: bold;
             color: #fff;
+            text-decoration: none; /* Ensure it doesn't look like a standard link */
         }
         .navbar .right-nav-group {
             display: flex;
@@ -50,7 +80,7 @@
             font-size: 14px;
             white-space: nowrap; /* Prevent text from wrapping */
             transition: border-color 0.3s ease, transform 0.2s ease;
-            
+
             /* Ensure internal content is centered for perfect alignment */
             display: inline-flex;
             align-items: center;
@@ -106,7 +136,7 @@
         /* Sri Lankan Flag Styling */
         .sri-lankan-flag {
             position: absolute;
-            top: px;
+            top: auto; /* Fixed: Changed from 'top: px;' to 'top: auto;' */
             bottom: 35px; /* Adjust as needed for spacing from bottom */
             right: 20px; /* Adjust as needed for spacing from right */
             width: 60px; /* Flag width */
@@ -160,7 +190,7 @@
                 right: 5px;
             }
         }
-        
+
         /* Main content and card styling */
         main {
             flex-grow: 1; /* Allows main content to take available space */
@@ -168,8 +198,8 @@
             flex-direction: column;
             align-items: center;
             justify-content: center; /* Center content vertically */
-            padding-bottom: 100px; /* Adjusted padding to accommodate button below */
-            padding-top: 100px;
+            padding-bottom: 40px; /* Adjusted padding to create space above the button */
+            padding-top: 20px;
         }
 
         .card {
@@ -245,30 +275,34 @@
             transition: background 0.3s ease;
             text-decoration: none;
             display: inline-block;
-            margin: 40px auto; /* Centered horizontally, with top/bottom margin */
+            margin: 40px auto; /* Adjusted margin to move it up and provide more spacing */
         }
 
         .back-to-home-btn:hover {
             background-color: #666;
         }
 
-        /* New SEO heading styles */
+        /* SEO heading styles */
         .seo-heading-container {
             text-align: center;
             padding: 10px 10px; /* Further reduced padding */
             margin-top: 10px; /* Further reduced margin from navbar */
             margin-bottom: 10px; /* Further reduced margin from main content */
-            max-width: 600px; /* Further reduced max-width */
+            max-width: 800px; /* Increased max-width for longer lines */
             width: 100%;
             box-sizing: border-box;
+            /* Ensure the container itself is centered */
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .seo-heading-container h1 {
-            font-size: 1.2em; /* Even smaller font size for desktop */
+            font-size: 16.5px; /* Even smaller font size for desktop */
             color: #333;
             margin: 0;
             line-height: 1.2; /* Adjusted line height */
             font-weight: normal; /* Changed to normal (not bold) */
+            text-align: center; /* Ensure text itself is centered within the h1 */
         }
 
         @media (max-width: 768px) {
@@ -312,9 +346,9 @@
 </head>
 <body>
     <header class="navbar">
-        <div class="logo">Fixway</div>
+        <a href="{{ url_for('home') }}" class="logo">Fixway</a>
         <div class="right-nav-group">
-            <a href="#">AI</a>
+            <a href="{{ url_for('ai_page') }}">AI</a>
             <a href="{{ url_for('about') }}">About Us</a>
             <button class="login-button" onclick="openModal()">Login</button>
         </div>
@@ -395,7 +429,7 @@
         function handleDropPdf(e) {
             const dt = e.dataTransfer;
             const files = dt.files;
-            
+
             if (files.length > 0) {
                 // Ensure only PDF files are accepted
                 if (files[0].type === 'application/pdf') {
